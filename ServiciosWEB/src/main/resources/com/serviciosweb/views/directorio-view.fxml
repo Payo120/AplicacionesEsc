@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="root-pane"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.serviciosweb.controller.DirectorioController">
+
+    <top>
+        <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding>
+                <Insets top="16" right="24" bottom="16" left="24"/>
+            </padding>
+            <VBox spacing="2">
+                <Label text="Directorio de Usuarios" styleClass="header-title"/>
+                <Label text="Consumo de servicio REST en formato JSON" styleClass="header-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblEstadoBadge" text="Listo" styleClass="status-badge, badge-idle"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox styleClass="content-wrapper" spacing="14">
+            <padding>
+                <Insets top="18" right="24" bottom="14" left="24"/>
+            </padding>
+            <VBox styleClass="surface-card" spacing="14" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="16" right="18" bottom="16" left="18"/>
+                </padding>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtFiltro"
+                               promptText="Buscar por nombre, usuario, correo, ciudad u organización..."
+                               styleClass="search-input"
+                               HBox.hgrow="ALWAYS"/>
+                    <ProgressIndicator fx:id="indicadorCarga" prefWidth="22" prefHeight="22" maxWidth="22" maxHeight="22"/>
+                    <Button fx:id="btnCargar"
+                            text="Cargar registros"
+                            onAction="#onCargarRegistros"
+                            styleClass="btn-primary"/>
+                    <Button fx:id="btnLimpiar"
+                            text="Limpiar"
+                            onAction="#onLimpiarTabla"
+                            styleClass="btn-secondary"/>
+                </HBox>
+
+                <TableView fx:id="tablaDirectorio" styleClass="directory-table" VBox.vgrow="ALWAYS">
+                    <placeholder>
+                        <VBox alignment="CENTER" spacing="6">
+                            <Label text="No hay usuarios para mostrar" styleClass="placeholder-title"/>
+                            <Label text="Presione Cargar registros para obtener los datos del servicio web" styleClass="placeholder-subtitle"/>
+                        </VBox>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="colId" text="#" prefWidth="52" minWidth="44" maxWidth="70" styleClass="col-center"/>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="175"/>
+                        <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="120"/>
+                        <TableColumn fx:id="colCorreo" text="Correo" prefWidth="195"/>
+                        <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="155"/>
+                        <TableColumn fx:id="colCiudad" text="Ciudad" prefWidth="130"/>
+                        <TableColumn fx:id="colOrganizacion" text="Organización" prefWidth="165"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="footer-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding>
+                <Insets top="10" right="24" bottom="10" left="24"/>
+            </padding>
+            <Label fx:id="lblConteo" text="Sin registros cargados" styleClass="footer-count"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblDetalle" text="" styleClass="footer-detail"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
